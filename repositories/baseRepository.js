@@ -23,6 +23,7 @@ class BaseRepository {
     create(data) {
         data.id = this.generateId();
         data.createdAt = new Date();
+        console.log(data);
         const list = this.dbContext.push(data).write();
         return list.find(it => it.id === data.id);
     }
