@@ -4,48 +4,23 @@ class FighterService {
     // TODO: Implement methods to work with fighters
 
     findFighters() {
-        const fighters = FighterRepository.getAll();
-
-        if (!fighters) {
-            throw new Error('Fighters not found!');
-        }
-        return fighters;
+      return  FighterRepository.getAll();
     }
 
     findFighterById(id) {
-        const fighter = FighterRepository.getOne(id);
-
-        if (!fighter) {
-            throw new Error('Fighter not found!');
-        }
-        return fighter;
+        return this.search({ id });
     }
 
     createFighter(data) {
-        const createFighter = FighterRepository.create(data);
-
-        if (createFighter) {
-            throw new Error('Fighter not create!');
-        }
-        return createFighter;
+        return  FighterRepository.create(data);
     }
 
     updateFighter(id, data) {
-        const fighterUpdate = FighterRepository.update(id, data);
-
-        if (!fighterUpdate.id) {
-            throw new Error('Fighter not update!');
-        }
-        return fighterUpdate;
+        return  FighterRepository.update(id, data);
     }
 
     deleteFighter(id) {
-        const fighterDelete = FighterRepository.delete(id);
-
-        if(!fighterDelete) {
-            throw new Error('Fighter not delete!');
-        }
-        return fighterDelete;
+        return  FighterRepository.delete(id);
     }
 
     search(search) {
