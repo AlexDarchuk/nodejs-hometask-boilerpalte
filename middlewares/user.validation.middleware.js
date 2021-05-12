@@ -4,9 +4,9 @@ const { EMAIL_REGEXP, NUMBER_REGEXP} = require('../validators/regexp.enum');
 
 const createUserValid = (req, res, next) => {
     try {
-        const { firstName, lastName, email, phoneNumber, password } = req.body;
+        const {id, firstName, lastName, email, phoneNumber, password } = req.body;
 
-        if(!firstName || !lastName) {
+        if(!firstName || !lastName ) {
             throw new Error('FirstName or LastName entered incorrectly!');
         }
 
@@ -21,7 +21,9 @@ const createUserValid = (req, res, next) => {
         if ( !password|| !password.length >= 3) {
             throw new Error('Password entered incorrectly')
         }
-
+        if(Object.keys(req.body).length == 0) {
+            throw new Error('Data is empty');
+        }
         next();
     }catch (e) {
         res.status(400).json(e.message);
@@ -34,7 +36,7 @@ const updateUserValid = (req, res, next) => {
         const { id } = req.params;
         const fields = Object.keys(req.body);
 
-        if (!fields.every(key => userKeys.indexOf(key) >= 0) || req.body.id || !UserService.findUsersById(id)) {
+        if (!fields.every(key => userKeys.indexOf(key) >= 0) || id || !UserService.findUsersById(id) || Object.keys(fields).length == 0) {
             throw new Error('Validation or data processing error-1');
         } else {
             for (let key in req.body) {
